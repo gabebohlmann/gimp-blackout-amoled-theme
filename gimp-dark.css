@@ -1,0 +1,464 @@
+/* GIMP theme css file - Aggressive Blackout v2.1 */
+
+/* Color */
+@define-color main_color #000000;
+@define-color canvas_col #000000;
+@define-color menubarcol #000000; /* This is for the menubar */
+@define-color rulerbg_col #000000;
+
+/* Interactive/Accent Colors */
+@define-color slider_col1 #6546c2;
+@define-color slider_col2 #7554d2;
+@define-color layer_selcol #737381;
+@define-color layer_selcol2 #737381;
+@define-color ruler_col #5b5b68;
+@define-color theme_selected_bg_color #d93a31;
+
+/* Elements being pushed to #000000 */
+@define-color scrollbar_col #000000;
+/* WARNING: scrollbarbg_col #000000 will make the scrollbar thumb invisible.
+   If you need to see it, use a very dark grey like #0A0A0A or an accent color. */
+@define-color scrollbarbg_col #000000;
+@define-color border_col #000000; /* General borders - will be invisible */
+@define-color toolboxcol #000000;
+@define-color separator #000000;
+
+/* Text Colors */
+@define-color text_color_main #d6d6d6;
+@define-color text_color_entry #7251cf;
+
+/* Ensure main window background is black */
+window, window.background, .background {
+    background-color: @main_color;
+    color: @text_color_main;
+}
+
+/* === Menubar Styling - REVISED to fix regression === */
+menubar { /* Selector reverted to just 'menubar' which worked previously for GIMP 2.10 menubar */
+    background-color: @menubarcol; /* #000000 */
+    color: @text_color_main;
+    border-color: @border_col;     /* #000000 */
+    border-bottom-color: @border_col; /* #000000 */
+    border-width: 0px;
+    box-shadow: none;
+    padding: 2px 0px; /* Minimal vertical padding for menubar items */
+    margin: 0px;
+}
+
+/* Styling for the pop-up menus that appear when you click File, Edit, etc. */
+menu, GtkMenu, .menu {
+    background-color: @main_color; /* #000000 */
+    color: @text_color_main;
+    /* Pop-up menus often look better with a very subtle border if not pure black.
+       If border_col is #000000, this border will be invisible.
+       If you want a visible border for popup menus, change @border_col to e.g. #101010
+       or set border-color directly here: border: 1px solid #101010; */
+    border: 1px solid @border_col;
+    padding: 2px; /* Add some padding to the menu box itself */
+}
+
+menu menuitem, GtkMenu menuitem, .menu menuitem { /* Targeting menu items themselves */
+    padding: 4px 8px; /* Padding for individual menu items for better spacing */
+}
+
+menu menuitem:hover, GtkMenu menuitem:hover,
+.menu menuitem:hover {
+    background-color: @layer_selcol; /* Keep layer selection color for hover */
+    color: @text_color_main;
+}
+/* === End of Menubar/Menu Styling Revision === */
+
+
+/* For GTK3 style header bars, for broader compatibility if some elements use it */
+headerbar, .header-bar, GtkHeaderBar {
+    background-color: @main_color;
+    color: @text_color_main;
+    border-color: @border_col;
+    border-bottom-color: @border_col;
+    border-width: 0px;
+    box-shadow: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+toolbar, GtkToolbar, .toolbar {
+    background-color: @main_color;
+    color: @text_color_main;
+    border-color: @border_col;
+    box-shadow: none;
+    padding: 2px;
+    margin: 0px;
+}
+
+/* ALL GIMP specific widget properties from original file */
+* {
+    -gtk-icon-style:                symbolic;
+    -GimpDockWindow-default-height:   300;
+    -GimpMenuDock-minimal-width:      200;
+    -GimpDockWindow-menu-preview-size: button;
+    -GimpToolPalette-tool-icon-size:  large-toolbar;
+    -GimpToolPalette-button-relief:   none;
+    -GimpDockbook-tab-icon-size:      button;
+    -GimpColorNotebook-tab-icon-size: button;
+    -GimpDeviceEditor-handle-size:    12;
+    -GimpDockable-content-border:     2;
+    -GimpEditor-content-spacing:      2;
+    -GimpEditor-button-spacing:       2;
+    -GimpEditor-button-icon-size:     menu;
+    -GimpDataEditor-minimal-height:   96;
+    -GtkDialog-content-area-border:   0;
+    -GtkDialog-button-spacing:        6;
+    -GtkDialog-action-area-border:    12;
+    -GimpUnitComboBox-appears-as-list: 0;
+}
+
+GimpToolDialog {
+    -GtkDialog-action-area-border: 6;
+}
+
+GimpColorNotebook tab {
+    padding: 0 0 0 0;
+}
+
+GimpDock GimpColorNotebook spinbutton,
+GimpDock GimpColorNotebook spinbutton entry,
+GimpDock GimpColorScales spinbutton,
+GimpDock GimpColorScales spinbutton entry {
+    min-height: 0;
+}
+
+GimpColorSelection ColorselCmyk {
+    padding: 2px 2px 2px 2px;
+}
+
+GimpColorHistory button {
+    padding: 3px 3px 3px 3px;
+}
+
+#gimp-color-tag-box button {
+    padding: 4px 6px 4px 6px;
+}
+
+tab GimpFgBgView {
+    padding: 6px 6px 6px 6px;
+}
+
+GimpFgBgEditor:active {
+    border-width: 2px 2px 2px 2px;
+    border-color: @slider_col1; /* Use accent for active border */
+}
+
+GimpDock {
+    font-size: smaller;
+    color: @text_color_main;
+    background-color: @main_color;
+}
+
+GimpDock notebook tab {
+    padding: 0 0 0 0;
+}
+
+GimpDock :not(toolbutton) > button,
+GimpOverlayDialog button,
+GimpToolDialog :not(headerbar) button,
+GimpTextStyleEditor button {
+    padding: 0px 2px 0px 2px;
+}
+
+GimpToolDialog headerbar {
+    min-height: 0;
+    background-color: @main_color;
+    border-bottom-color: @border_col;
+}
+
+GimpToolDialog headerbar button {
+    padding: 2px 2px 2px 2px;
+}
+
+GimpDock frame {
+    -GimpFrame-label-bold:      0;
+    -GimpFrame-label-spacing:   2;
+    background-color: @main_color;
+    border-color: @border_col;
+}
+
+GimpDisplayShell grid > button {
+    min-height: 0;
+    min-width: 0;
+    padding: 0 0 0 0;
+}
+
+GimpDisplayShell combobox entry {
+    font-size: smaller;
+}
+
+GimpDisplayShell combobox button {
+    font-size: smaller;
+}
+
+GimpDisplayShell progressbar text {
+    font-size: larger;
+}
+
+GimpDisplayShell progressbar trough,
+GimpDisplayShell progressbar progress {
+    min-height: 1em;
+}
+
+GimpFileDialog progressbar trough,
+GimpFileDialog progressbar progress {
+    min-width: 1px; /* hack */
+    min-height: 1em;
+}
+
+GimpRuler {
+    color: @ruler_col;
+    background-color: @rulerbg_col;
+}
+
+GimpSpinScale entry {
+    min-height: 16px;
+}
+
+GimpSpinScale entry progress {
+    background-image: -gtk-gradient (linear, left top, right top,
+                                      from (@slider_col1),
+                                      to (@slider_col2));
+    border-width:     0px;
+    border-radius:    4px;
+}
+
+GimpSpinScale button {
+    padding: 0 1px 0 1px;
+}
+
+entry.italic {
+    font-style: italic;
+}
+
+entry, GtkEntry {
+    min-height:1px;
+    border:1px solid;
+    padding:1px 8px;
+    caret-color: @slider_col1;
+    transition:all 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    color: @text_color_entry;
+    border-color: @border_col;
+    background-color: #000000;
+    background-image: none;
+    border-radius: 3px;
+}
+entry:focus, GtkEntry:focus,
+entry:active, GtkEntry:active {
+    color: @text_color_entry;
+    border-radius: 0; /* Consider 3px if you prefer rounded focus */
+    background-color: #000000;
+    border: 1px solid;
+    border-color: #0A0A0A; /* Minimal focus border, change to @border_col if no visual focus border is desired */
+    box-shadow:inset 1px 0 @color_0020, inset -1px 0 @color_0020, inset 0 1px @color_0020, inset 0 -1px @color_0020;
+}
+entry:disabled, GtkEntry:disabled {
+    color: alpha(@text_color_main, 0.5);
+    border-color: @border_col;
+    background-color: #000000;
+    border-radius: 2px;
+}
+entry selection, GtkEntry selection {
+    background-color: @slider_col1;
+    color: @text_color_main;
+    border-radius: 2px;
+}
+entry selection:disabled, GtkEntry selection:disabled,
+entry selection:backdrop:disabled, GtkEntry selection:backdrop:disabled {
+    background-color: alpha(@slider_col1, 0.5);
+}
+
+entry:disabled progress {
+    border-radius:2px;
+    border-color: @border_col;
+    border-style:solid;
+    background-image: none;
+    background-color: @border_col;
+    box-shadow: none;
+}
+
+.grid, box, GtkBox,
+separator, GtkSeparator,
+/* menu, GtkMenu, .menu, -- Handled specifically above */
+header,
+tabs, GtkNotebook,
+stack, GtkStack,
+GimpSpinScale,
+toolbutton {
+    background-color: @main_color;
+    border-color: @border_col;
+}
+
+GimpDisplayShell, GimpImageWindow {
+    background-color: @main_color;
+}
+GimpDisplayShell grid {
+    background-color: @canvas_col;
+}
+
+treeview, GtkTreeView {
+    background-color: @main_color;
+    border-color: @border_col;
+    color: @text_color_main;
+    transition:all 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border-width:0px;
+    border-style:solid;
+    border-radius:2px;
+    background-image: none;
+    box-shadow: none;
+    text-shadow: none;
+}
+
+treeview header button, GtkTreeView header button {
+    padding: 6px;
+    background-color: @main_color;
+    border-color: @border_col;
+}
+
+treeview .toggle-icon:not(.visible):hover {
+    border: 1px solid @text_color_main;
+    border-radius: 3px;
+}
+
+treeview .toggle-icon:not(.visible):selected {
+    border-color: @slider_col1;
+}
+
+treeview.view:selected, GtkTreeView.view:selected,
+treeview.view:selected:focus, GtkTreeView.view:selected:focus {
+    background-image: -gtk-gradient (linear, left top, right top,
+                                      from (@layer_selcol),
+                                      to (@layer_selcol2));
+    border-radius: 0;
+    color: @text_color_main;
+}
+
+scrollbar, GtkScrollbar {
+    background: none;
+    background-image: none;
+    border-image: none;
+    min-width: 1px;
+    min-height: 1px;
+    background-color: @scrollbar_col;
+    transition: 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    margin: 0px;
+    padding: 0px;
+}
+
+scrollbar:backdrop, GtkScrollbar:backdrop {
+    background-color: @scrollbar_col;
+    border-color: @scrollbar_col;
+    transition: 200ms ease-out;
+}
+scrollbar slider, GtkScrollbar slider {
+    min-width: 9px;
+    min-height: 9px;
+    border-radius: 20px;
+    background-color: @scrollbarbg_col;
+    border: 0px none;
+}
+
+checkbutton, GtkCheckButton,
+button, GtkButton {
+    color: @text_color_main;
+    background-color: @main_color;
+    border: 1px solid @border_col;
+    padding: 3px 6px;
+}
+
+button:hover, GtkButton:hover {
+    background-color: #080808;
+    border-color: #111111; /* Subtle border on hover */
+    color: @text_color_main;
+}
+
+button:active, GtkButton:active {
+    background-color: #101010;
+    border-color: #222222;
+    color: @text_color_main;
+}
+
+toolbutton > button {
+    transition:all 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border-radius:3px;
+    padding:7px 1px;
+    background-color: @main_color;
+    border: 1px solid @main_color;
+}
+toolbutton > button:hover {
+    background-color: #080808;
+    border-color: #111111;
+}
+toolbutton > button:checked {
+    transition:all 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border:1px solid @slider_col1;
+    border-radius:1px;
+    padding:2px 2px;
+    border-width: 0 0 0 2.5px;
+    border-color: @slider_col1;
+    background-color: @toolboxcol;
+}
+toolbutton > button:checked:hover {
+    transition:all 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border:1px solid @slider_col1;
+    background-color: #050505;
+    padding:1px 1px;
+    border-width: 0 0 0 2.5px;
+    border-color: @slider_col1;
+}
+
+combobox button, GtkComboBox button {
+    transition:all 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border:1px solid;
+    border-radius:3px;
+    color: @text_color_main;
+    border-color: @border_col;
+    background-color: @main_color;
+    background-image: none;
+    box-shadow: none;
+    text-shadow: none;
+    padding: 2px 4px;
+}
+combobox button:hover, GtkComboBox button:hover {
+    border-color: #0A0A0A;
+    background-color: #050505;
+}
+combobox button:disabled, GtkComboBox button:disabled {
+    color: alpha(@text_color_main, 0.3);
+    border-color: #000000;
+    background-color: #000000;
+}
+combobox button:active, GtkComboBox button:active {
+    border-color: @slider_col1;
+    background-color: #0A0A0A;
+}
+
+combobox button.suggested-action:not(:disabled) {
+    color: @text_color_main;
+    background-color: @slider_col1;
+}
+combobox button.suggested-action:not(:disabled):hover {
+    background-color: @slider_col2;
+}
+
+separator.wide, GtkSeparator.wide {
+    min-width:1px;
+    min-height:12px;
+    background-color: @separator;
+    border: 0 none;
+}
+
+/* Removed the overly broad 'widget, GtkWidget' rule that might have caused issues */
+
+/* Undefined @color_xxxx variables from original CSS:
+@color_0002, @color_0020, @color_0005, @color_0006, @color_0007,
+@color_0010, @color_0011, @color_0063, @color_0033, @color_0034
+Their effect depends on their actual color values (likely from a base GTK theme).
+If they are light colors, they might provide some subtle visual cues.
+If they are also dark, those cues will be lost.
+*/
