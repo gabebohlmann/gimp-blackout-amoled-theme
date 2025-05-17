@@ -13,6 +13,7 @@
   * Feel free to submit a PR for any issues or improvents.
 
 #### TODO
+  1. IMPORTANT: Makes theme borderline unusable. Tooltip hover on tools in left sidebar disappear. 
   1. The File, Edit, etc. Menubar turns grey when the window loses focus. Figure out how to keep it `#000000` on focus loss.
   1. Update selection color. Currently it is bright blue.
   1. Fix problem with text in Menubar dropdowns having a different highlight background color than the Menubar itself.
